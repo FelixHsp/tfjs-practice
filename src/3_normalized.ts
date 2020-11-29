@@ -1,13 +1,17 @@
 import * as tf from '@tensorflow/tfjs-node';
 
-const xs: Array<number> = [1, 2, 3, 4];
-const ys: Array<number> = [1, 3, 5, 7];
+const heights = [170, 180, 190];
+const weights = [70, 80, 90];
 
 const SGD = 0.1;
-const BATCH_SIZE = 1;
+const BATCH_SIZE = 3;
 const EPOCHS = 100;
 
 const run = async () => {
+  // 归一化: 压缩为0-1
+  const inputs = tf.tensor(heights).sub(170).div(20);
+  const labels = tf.tensor(weights).sub(70).div(20);
+
   // init model
   const model = tf.sequential();
 
@@ -23,17 +27,13 @@ const run = async () => {
     optimizer: tf.train.sgd(SGD)
   });
 
-
-  const inputs = tf.tensor(xs);
-  const labels = tf.tensor(ys);
-  
   await model.fit(inputs, labels, {
     batchSize: BATCH_SIZE,
     epochs: EPOCHS
   });
 
-  const output = model.predict(tf.tensor([5]));
-  console.log(`predict: ${(output as any).dataSync()}`);
+  const output: any = model.predict(tf.tensor([200]).sub(170).div(20));
+  console.log(`predict: ${output.mul(20).add(70).dataSync()}`);
 };
 
 run();
