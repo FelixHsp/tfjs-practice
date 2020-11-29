@@ -14,6 +14,24 @@ export function getData(numSamples: number) {
   return points;
 }
 
+export function getXorData(numSamples: number) {
+  let points = [];
+
+  function genGauss(cx: number, cy: number, label: number) {
+    for (let i = 0; i < numSamples / 2; i++) {
+      let x = normalRandom(cx);
+      let y = normalRandom(cy);
+      points.push({ x, y, label });
+    }
+  }
+
+  genGauss(2, 2, 0);
+  genGauss(-2, -2, 0);
+  genGauss(-2, 2, 1);
+  genGauss(2, -2, 1);
+  return points;
+}
+
 
 function normalRandom(mean = 0, variance = 1) {
   let v1: number, v2: number, s: number;
