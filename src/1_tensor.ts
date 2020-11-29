@@ -1,4 +1,4 @@
-const tf = require('@tensorflow/tfjs-node');
+import * as tf from '@tensorflow/tfjs-node';
 
 /*
 const t0 = tf.tensor(1);
@@ -19,7 +19,6 @@ console.log(t3); // shape: [ 1, 1, 1 ]
 */
 
 
-/* 
 // for循环向量化
 const input = [1, 2, 3, 4];
 const weight = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]];
@@ -34,4 +33,3 @@ for (let i = 0; i < weight.length; i++) {
 console.log(output);
 
 tf.tensor(weight).dot(tf.tensor(input)).print();
-*/
